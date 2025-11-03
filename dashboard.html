@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CarbonSherlock — Dashboard</title>
   <link rel="stylesheet" href="dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="dashboard.js" defer></script>
 </head>
 <body>
@@ -20,49 +21,26 @@
     </div>
   </header>
 
-  <!-- Top metrics -->
+  <!-- Top Metrics -->
   <section class="metrics">
-    <div class="metric-card">
-      <h2>1,250</h2>
-      <p>Active Projects</p>
-    </div>
-    <div class="metric-card">
-      <h2>36</h2>
-      <p>Verified Today</p>
-    </div>
-    <div class="metric-card alert">
-      <h2>12</h2>
-      <p>Fraud Detected</p>
-    </div>
-    <div class="metric-card">
-      <h2>8</h2>
-      <p>Satellites Active</p>
-    </div>
+    <div class="metric-card"><h2>1,250</h2><p>Active Projects</p></div>
+    <div class="metric-card"><h2>36</h2><p>Verified Today</p></div>
+    <div class="metric-card alert"><h2>12</h2><p>Fraud Detected</p></div>
+    <div class="metric-card"><h2>8</h2><p>Satellites Active</p></div>
   </section>
 
   <!-- Main Content -->
   <main class="main-content">
-
-    <!-- Left side -->
     <div class="left">
       <div class="card">
         <h3>🔎 Project Verification</h3>
-        <p>Enter project details to run a multi-modal verification (AI + satellite + blockchain).</p>
-
+        <p>Enter project details to run a multi-modal verification.</p>
         <label>Project Name</label>
-        <input id="projectName" placeholder="e.g., Amazon restoration">
-
+        <input id="projectName" placeholder="e.g., Amazon Restoration">
         <div class="input-grid">
-          <div>
-            <label>Claimed Trees</label>
-            <input id="claimedTrees" type="number" placeholder="e.g., 500000">
-          </div>
-          <div>
-            <label>Claimed Carbon (tons CO₂)</label>
-            <input id="claimedCarbon" type="number" placeholder="e.g., 2500">
-          </div>
+          <div><label>Claimed Trees</label><input id="claimedTrees" type="number" placeholder="788900"></div>
+          <div><label>Claimed Carbon (tons CO₂)</label><input id="claimedCarbon" type="number" placeholder="123068"></div>
         </div>
-
         <div style="text-align:center; margin-top:15px;">
           <button onclick="verifyProject()">Verify Project with AI</button>
         </div>
@@ -97,7 +75,6 @@
       </div>
     </div>
 
-     <!-- Right side -->
     <div class="right">
       <div class="card">
         <h4>🔗 Blockchain Verification</h4>
@@ -117,27 +94,9 @@
         <h2 id="verifiedPercent">—</h2>
         <p id="verifiedBadge">—</p>
         <p id="confidence">Confidence Score: —</p>
-
-        <div class="bar-chart" id="barChart">
-          <div class="bar-chart">
-      <div class="bar">
-        <div class="bar-fill" id="bar1" style="height: 10%"></div>
-        <p class="label">Air Quality</p>
+        <canvas id="riskChart"></canvas>
       </div>
-      <div class="bar">
-        <div class="bar-fill" id="bar2" style="height: 75%"></div>
-        <p class="label">Biodiversity</p>
-      </div>
-      <div class="bar">
-        <div class="bar-fill" id="bar3" style="height: 85%"></div>
-        <p class="label">Soil Carbon</p>
-      </div>
-      <div class="bar">
-        <div class="bar-fill" id="bar4" style="height: 65%"></div>
-        <p class="label">Water Cycle</p>
-      </div>
-      
     </div>
-  </div>
+  </main>
 </body>
 </html>
