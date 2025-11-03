@@ -121,7 +121,7 @@ document.getElementById('darkModeToggle').addEventListener('click', () => {
   const isDark = document.body.classList.contains('dark-mode');
   const btn = document.getElementById('darkModeToggle');
   
-  btn.textContent = isDark ? '☀️ Dark Mode ON' : '🌙 Dark Mode OFF';
+  btn.textContent = isDark ? '☀️' : '🌙';
   btn.style.background = isDark ? '#7c4dff' : '#333';
   
   // Save preference
@@ -132,7 +132,8 @@ document.getElementById('darkModeToggle').addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('darkMode') === 'true') {
     document.body.classList.add('dark-mode');
-    document.getElementById('darkModeToggle').textContent = '☀️ Dark Mode ON';
+    document.getElementById('darkModeToggle').textContent = '☀️';
     document.getElementById('darkModeToggle').style.background = '#7c4dff';
   }
 });
+
