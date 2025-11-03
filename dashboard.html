@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarbonSherlock — Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="dashboard.js" defer></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">🌱</div>
+      <div>
+        <h1>CarbonSherlock</h1>
+        <p>AI-Powered Multi-Modal Carbon Credit Verification Platform</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Top metrics -->
+  <section class="metrics">
+    <div class="metric-card">
+      <h2>1,250</h2>
+      <p>Active Projects</p>
+    </div>
+    <div class="metric-card">
+      <h2>36</h2>
+      <p>Verified Today</p>
+    </div>
+    <div class="metric-card alert">
+      <h2>12</h2>
+      <p>Fraud Detected</p>
+    </div>
+    <div class="metric-card">
+      <h2>8</h2>
+      <p>Satellites Active</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Left side -->
+    <div class="left">
+      <div class="card">
+        <h3>🔎 Project Verification</h3>
+        <p>Enter project details to run a multi-modal verification (AI + satellite + blockchain).</p>
+
+        <label>Project Name</label>
+        <input id="projectName" placeholder="e.g., Amazon restoration">
+
+        <div class="input-grid">
+          <div>
+            <label>Claimed Trees</label>
+            <input id="claimedTrees" type="number" placeholder="e.g., 500000">
+          </div>
+          <div>
+            <label>Claimed Carbon (tons CO₂)</label>
+            <input id="claimedCarbon" type="number" placeholder="e.g., 2500">
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:15px;">
+          <button onclick="verifyProject()">Verify Project with AI</button>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="card">
+          <h4>📍 Project Location</h4>
+          <p id="gps">GPS Coordinates: —</p>
+          <p id="projectSize">Project Size: —</p>
+        </div>
+        <div class="card">
+          <h4>🌲 Forest Data</h4>
+          <p id="claimedTreesCard">Claimed Trees: —</p>
+          <p id="verifiedTreesCard">Verified Trees: —</p>
+          <p id="verificationRate">Verification Rate: —</p>
+        </div>
+        <div class="card">
+          <h4>🌿 Environmental Impact</h4>
+          <p id="carbonStored">Carbon Stored: —</p>
+          <p id="biodiversity">Biodiversity Score: —</p>
+          <p id="communityJobs">Community Jobs: —</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>🛰️ Satellite Analysis (Before / After)</h4>
+        <div class="sat-images">
+          <div class="sat-img">Before Image</div>
+          <div class="sat-img">After Image</div>
+        </div>
+      </div>
+    </div>
+
+     <!-- Right side -->
+    <div class="right">
+      <div class="card">
+        <h4>🔗 Blockchain Verification</h4>
+        <pre id="blockHash">—</pre>
+        <p id="verifiedAt" style="font-size:12px; color:#555;">—</p>
+      </div>
+
+      <div class="card">
+        <h4>📡 Real-time System Activity</h4>
+        <div class="activity" id="activityFeed">
+          <p style="color:#888;">No activity yet — verify a project to see logs.</p>
+        </div>
+      </div>
+
+      <div class="card summary">
+        <h4>✅ Verification Summary</h4>
+        <h2 id="verifiedPercent">—</h2>
+        <p id="verifiedBadge">—</p>
+        <p id="confidence">Confidence Score: —</p>
+
+        <div class="bar-chart" id="barChart">
+          <div class="bar-chart">
+      <div class="bar">
+        <div class="bar-fill" id="bar1" style="height: 10%"></div>
+        <p class="label">Air Quality</p>
+      </div>
+      <div class="bar">
+        <div class="bar-fill" id="bar2" style="height: 75%"></div>
+        <p class="label">Biodiversity</p>
+      </div>
+      <div class="bar">
+        <div class="bar-fill" id="bar3" style="height: 85%"></div>
+        <p class="label">Soil Carbon</p>
+      </div>
+      <div class="bar">
+        <div class="bar-fill" id="bar4" style="height: 65%"></div>
+        <p class="label">Water Cycle</p>
+      </div>
+      
+    </div>
+  </div>
+</body>
+</html>
