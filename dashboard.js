@@ -112,3 +112,27 @@ function verifyProject() {
   // Logs
   pushActivity(`<b>${name}</b> verified - SUSPECT`);
 }
+
+// dark mode
+
+document.getElementById('darkModeToggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+  
+  const isDark = document.body.classList.contains('dark-mode');
+  const btn = document.getElementById('darkModeToggle');
+  
+  btn.textContent = isDark ? '☀️ Dark Mode ON' : '🌙 Dark Mode OFF';
+  btn.style.background = isDark ? '#7c4dff' : '#333';
+  
+  // Save preference
+  localStorage.setItem('darkMode', isDark);
+});
+
+// Load saved preference
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+    document.getElementById('darkModeToggle').textContent = '☀️ Dark Mode ON';
+    document.getElementById('darkModeToggle').style.background = '#7c4dff';
+  }
+});
