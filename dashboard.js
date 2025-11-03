@@ -1,79 +1,114 @@
-// Generate random numbers for simulation
+let riskChart = null;
+
 function randInt(a, b) {
   return Math.floor(Math.random() * (b - a + 1)) + a;
 }
 
-// Helper to make a fake blockchain hash
 function makeFakeHash() {
   const chars = 'abcdef0123456789';
   let s = '';
-  for (let i = 0; i < 64; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  for (let i = 0; i < 64; i++) s += chars[randInt(0, chars.length - 1)];
   return s;
 }
 
-// Add activity logs dynamically
 function pushActivity(text) {
-  const activityFeed = document.getElementById("activityFeed");
+  const feed = document.getElementById("activityFeed");
   const div = document.createElement("div");
   div.innerHTML = `<span style="color:#777;font-size:12px;">${new Date().toLocaleTimeString()}:</span> ${text}`;
-  activityFeed.prepend(div);
+  feed.prepend(div);
 }
 
-// Main verification logic
-function verifyProject() {
-  const name = document.getElementById("projectName").value.trim() || "Unnamed Project";
-  const claimedTrees = Number(document.getElementById("claimedTrees").value) || 0;
-  const claimedCarbon = Number(document.getElementById("claimedCarbon").value) || 0;
 
-  // Demo data updates
-  const verifiedTrees = Math.round(claimedTrees * (randInt(30, 90) / 100));
-  const verificationRate = claimedTrees ? Math.round((verifiedTrees / claimedTrees) * 100) : 0;
-
-  document.getElementById("claimedTreesCard").textContent = `Claimed Trees: ${claimedTrees}`;
-  document.getElementById("verifiedTreesCard").textContent = `Verified Trees: ${verifiedTrees}`;
-  document.getElementById("verificationRate").textContent = `Verification Rate: ${verificationRate}%`;
-
-  // Environmental data
-  const carbonStored = Math.round(verifiedTrees * 0.02);
-  document.getElementById("carbonStored").textContent = `Carbon Stored: ${carbonStored} tons CO₂`;
-  document.getElementById("biodiversity").textContent = `Biodiversity Score: ${randInt(30, 90)}/100`;
-  document.getElementById("communityJobs").textContent = `Community Jobs: ${randInt(5, 40)}`;
-
-  // Verification score
-  const percentVerified = Math.min(100, Math.max(0, verificationRate + randInt(-10, 10)));
-  const confidence = randInt(70, 99);
-
-  document.getElementById("verifiedPercent").textContent = percentVerified + "%";
-  document.getElementById("confidence").textContent = `Confidence Score: ${confidence}%`;
-
-  const badgeEl = document.getElementById("verifiedBadge");
-  if (percentVerified > 60) {
-    badgeEl.textContent = "VERIFIED ✅";
-    badgeEl.style.background = "#2e7d32";
-  } else if (percentVerified > 30) {
-    badgeEl.textContent = "SUSPECT ⚠️";
-    badgeEl.style.background = "#f9a825";
-  } else {
-    badgeEl.textContent = "FRAUD ❌";
-    badgeEl.style.background = "#c62828";
+document.addEventListener('DOMContentLoaded', () => {
+  const ctx = document.getElementById('riskChart').getContext('2d');
+  riskChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Air Quality', 'Carbon Soil', 'Biodiversity', 'Water Cycle'],
+      datasets: [{
+        data: [0, 0, 0, 0],
+        backgroundColor: ['#66BB6A', '#42A5F5', '#FFB300', '#EF5350'],
+        borderRadius: 10,
+        barThickness: 40
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { 
+          enabled: true,
+          titleFont: { size: 16 },
+          bodyFont: { size: 14 }
+        }
+      },
+      scales: {
+        y: { 
+          beginAtZero: true, 
+          max: 100, 
+          ticks: { 
+            stepSize: 20, 
+            font: { size: 16, weight: 'bold' }, 
+            color: '#000' 
+          },
+          grid: { color: '#ccc', linewidth: 1.5 }
+        },
+        x: { 
+          ticks: { 
+            font: { size: 14, weight: 'bold' }, 
+            color: '#000',
+            padding: 10
+          },
+          grid: { display: false }
+        }
+      },
+      animation: { duration: 1600, easing: 'easeOutElastic' }
+    }
+  });
+});
+function updateRiskChart(scores) {
+  if (riskChart) {
+    riskChart.data.datasets[0].data = scores;
+    riskChart.update();
   }
+}
 
-  // Blockchain data
-  const hash = makeFakeHash();
-  const shortHash = `0x${hash.slice(0, 6)}...${hash.slice(-6)}`;
+function verifyProject() {
+  const name = document.getElementById("projectName").value.trim() || "Amazon Restoration";
+  const claimedTrees = Number(document.getElementById("claimedTrees").value) || 788900;
+
+  const verifiedTrees = Math.round(claimedTrees * (randInt(60, 85) / 100));
+  const verificationRate = Math.round((verifiedTrees / claimedTrees) * 100);
+
+  // cards
+  document.getElementById("claimedTreesCard").textContent = `Claimed Trees: ${claimedTrees.toLocaleString()}`;
+  document.getElementById("verifiedTreesCard").textContent = `Verified Trees: ${verifiedTrees.toLocaleString()}`;
+  document.getElementById("verificationRate").textContent = `Verification Rate: ${verificationRate}%`;
+  document.getElementById("carbonStored").textContent = `Carbon Stored: ${Math.round(verifiedTrees * 0.02).toLocaleString()} tons CO₂`;
+  document.getElementById("biodiversity").textContent = `Biodiversity Score: 85/100`;
+  document.getElementById("communityJobs").textContent = `Community Jobs: 2`;
+  document.getElementById("gps").textContent = `GPS: 0.7893, 113.9213`;
+  document.getElementById("projectSize").textContent = `Project Size: 8.5 hectares`;
+
+  // Score
+  const percent = 36;
+  document.getElementById("verifiedPercent").textContent = percent + "%";
+  document.getElementById("confidence").textContent = "Confidence Score: 74.93%";
+
+  const badge = document.getElementById("verifiedBadge");
+  badge.textContent = "SUSPECT ⚠️";
+  badge.style.background = "#FF9800";
+  badge.style.color = "white";
+
+  // Blockchain
+  const shortHash = "0xabc123...def456";
   document.getElementById("blockHash").textContent = shortHash;
-  document.getElementById("verifiedAt").textContent = `Verified at: ${new Date().toUTCString()}`;
+  document.getElementById("verifiedAt").textContent = "Verified: 11/3/2025, 11:29 PM";
 
-  // Animate bar chart
-  document.getElementById("bar1").style.height = randInt(30, 100) + "%";
-  document.getElementById("bar2").style.height = randInt(30, 100) + "%";
-  document.getElementById("bar3").style.height = randInt(30, 100) + "%";
-  document.getElementById("bar4").style.height = randInt(30, 100) + "%";
+  // update CHART
+  updateRiskChart([20, 85, 90, 65]);
 
-  // Add activity logs
-  pushActivity(`<b>${name}</b> verification started.`);
-  setTimeout(() => pushActivity(`Satellite data analyzed for <b>${name}</b>.`), 700);
-  setTimeout(() => pushActivity(`Verification rate: ${verificationRate}%`), 1200);
-  setTimeout(() => pushActivity(`Result: ${badgeEl.textContent} (Confidence ${confidence}%)`), 1700);
-  setTimeout(() => pushActivity(`Blockchain receipt: <span style="font-size:12px;color:#555;">${shortHash}</span>`), 2200);
+  // Logs
+  pushActivity(`<b>${name}</b> verified - SUSPECT`);
 }
