@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         data: [0, 0, 0, 0],
         backgroundColor: ['#66BB6A', '#42A5F5', '#FFB300', '#EF5350'],
         borderRadius: 10,
-        barThickness: 40
+        barThickness: 50
       }]
     },
     options: {
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         legend: { display: false },
         tooltip: { 
           enabled: true,
-          titleFont: { size: 16 },
+          titleFont: { size: 20 },
           bodyFont: { size: 14 }
         }
       },
@@ -49,14 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
           max: 100, 
           ticks: { 
             stepSize: 20, 
-            font: { size: 16, weight: 'bold' }, 
+            font: { size: 20, weight: 'bold' }, 
             color: '#000' 
           },
           grid: { color: '#ccc', linewidth: 1.5 }
         },
         x: { 
           ticks: { 
-            font: { size: 14, weight: 'bold' }, 
+            font: { size: 17, weight: 'bold' }, 
             color: '#000',
             padding: 10
           },
@@ -136,4 +136,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('darkModeToggle').style.background = '#7c4dff';
   }
 });
+
 
